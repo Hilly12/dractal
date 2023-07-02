@@ -12,6 +12,7 @@ env:
   FB_CLIENT_EMAIL: "${{ secrets.FB_CLIENT_EMAIL }}"
   FB_PRIVATE_KEY: "${{ secrets.FB_PRIVATE_KEY }}"
   FB_API_KEY: "${{ secrets.FB_API_KEY }}"
+  FIREBASE_CLI_EXPERIMENTS: webframeworks
 
 jobs:
   build_and_deploy:
@@ -21,8 +22,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm install
-      - run: npm run build
+      - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
